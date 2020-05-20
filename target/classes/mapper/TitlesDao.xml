@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mysql.demo.dao.TitlesDao">
+
+    <resultMap type="com.mysql.demo.entity.Titles" id="TitlesMap">
+        <result property="empNo" column="emp_no" jdbcType="INTEGER"/>
+        <result property="title" column="title" jdbcType="VARCHAR"/>
+        <result property="fromDate" column="from_date" jdbcType="OTHER"/>
+        <result property="toDate" column="to_date" jdbcType="OTHER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="TitlesMap">
+        select
+          emp_no, title, from_date, to_date
+        from employees.titles
+        where emp_no = #{empNo}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="TitlesMap">
+        select
+          emp_no, title, from_date, to_date
+        from employees.titles
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="TitlesMap">
+        select
+          emp_no, title, from_date, to_date
+        from employees.titles
+        <where>
+            <if test="empNo != null">
+                and emp_no = #{empNo}
+            </if>
+            <if test="title != null and title != ''">
+                and title = #{title}
+            </if>
+            <if test="fromDate != null">
+                and from_date = #{fromDate}
+            </if>
+            <if test="toDate != null">
+                and to_date = #{toDate}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="empNo" useGeneratedKeys="true">
+        insert into employees.titles(to_date)
+        values (#{toDate})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update employees.titles
+        <set>
+            <if test="toDate != null">
+                to_date = #{toDate},
+            </if>
+        </set>
+        where emp_no = #{empNo}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from employees.titles where emp_no = #{empNo}
+    </delete>
+
+</mapper>
