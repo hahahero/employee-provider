@@ -1,4 +1,4 @@
-package com.mysql.employee.demo.service;
+package com.mysql.employee.demo.service.api;
 
 import com.mysql.employee.demo.entity.Employees;
 import java.util.List;

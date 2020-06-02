@@ -2,8 +2,9 @@ package com.mysql.employee.demo.service.impl;
 
 import com.mysql.employee.demo.entity.Employees;
 import com.mysql.employee.demo.dao.EmployeesDao;
-import com.mysql.employee.demo.service.EmployeesService;
-import org.springframework.stereotype.Service;
+import com.mysql.employee.demo.service.api.EmployeesService;
+import org.apache.dubbo.config.annotation.Service;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -14,7 +15,8 @@ import java.util.List;
  * @author makejava
  * @since 2020-06-01 14:02:28
  */
-@Service("employeesService")
+@Service
+@Component
 public class EmployeesServiceImpl implements EmployeesService {
     @Resource
     private EmployeesDao employeesDao;

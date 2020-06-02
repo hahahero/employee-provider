@@ -90,43 +90,55 @@
         </resources>
 
         <plugins>
-            <!--热部署插件-->
+            <!--&lt;!&ndash;热部署插件&ndash;&gt;-->
+            <!--<plugin>-->
+                <!--<groupId>org.springframework.boot</groupId>-->
+                <!--<artifactId>spring-boot-maven-plugin</artifactId>-->
+                <!--<configuration>-->
+                    <!--&lt;!&ndash;此处为自己的启动类&ndash;&gt;-->
+                    <!--<mainClass>com.mysql.employee.demo.EmployeeMain</mainClass>-->
+                <!--</configuration>-->
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<goals>-->
+                            <!--<goal>repackage</goal>-->
+                        <!--</goals>-->
+                    <!--</execution>-->
+                <!--</executions>-->
+            <!--</plugin>-->
+
+            <!-- 不需要打包成可执行的jar可使用此方式，只打包为用来做依赖用的，因为该方式打包的jar只能在tomcat外部容器中
+             运行，springboot插件打包会内置tomcat容器-->
             <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.2.0</version>
                 <configuration>
-                    <!--此处为自己的启动类-->
-                    <mainClass>com.mysql.employee.demo.EmployeeMain</mainClass>
+                    <excludes>
+                        <!--这些是表示打包是过滤掉的，这里不能写，因为会导致数据库配置读不到-->
+                        <!--<exclude>**/*.properties</exclude>-->
+                    </excludes>
+                    <archive>
+                        <manifest>
+                            <!-- 是否添加依赖的jar路径配置 -->
+                            <addClasspath>true</addClasspath>
+                            <!-- 依赖的jar包存放位置，和生成的jar放在同一级目录下 -->
+                            <classpathPrefix>${project.artifactId}-${project.version}/lib/</classpathPrefix>
+                            <!-- 配置maven编译打包后jar包的主入口函数 -->
+                            <mainClass>com.mysql.employee.demo.EmployeeMain</mainClass>
+                        </manifest>
+                    </archive>
                 </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
 
-
+            <!--或者使用别名：这样设置会让项目生成两个jar：一个exec后缀的位可执行jar，一个可依赖的jar-->
             <!--<plugin>-->
-                <!--<groupId>org.apache.maven.plugins</groupId>-->
-                <!--<artifactId>maven-jar-plugin</artifactId>-->
-                <!--<version>3.2.0</version>-->
+                <!--<groupId>org.springframework.boot</groupId>-->
+                <!--<artifactId>spring-boot-maven-plugin</artifactId>-->
                 <!--<configuration>-->
-                    <!--<excludes>-->
-                        <!--&lt;!&ndash;这些是表示打包是过滤掉的，这里不能写，因为会导致数据库配置读不到&ndash;&gt;-->
-                        <!--&lt;!&ndash;<exclude>**/*.properties</exclude>&ndash;&gt;-->
-                    <!--</excludes>-->
-                    <!--<archive>-->
-                        <!--<manifest>-->
-                            <!--&lt;!&ndash; 是否添加依赖的jar路径配置 &ndash;&gt;-->
-                            <!--<addClasspath>true</addClasspath>-->
-                            <!--&lt;!&ndash; 依赖的jar包存放位置，和生成的jar放在同一级目录下 &ndash;&gt;-->
-                            <!--<classpathPrefix>${project.artifactId}-${project.version}/lib/</classpathPrefix>-->
-                            <!--&lt;!&ndash; 配置maven编译打包后jar包的主入口函数 &ndash;&gt;-->
-                            <!--<mainClass>com.mysql.employee.demo.EmployeeMain</mainClass>-->
-                        <!--</manifest>-->
-                    <!--</archive>-->
+                    <!--&lt;!&ndash; 生成可执行的jar的名字：xxx-exec.jar &ndash;&gt;-->
+                    <!--&lt;!&ndash; 不固定，写成abcd都可以 &ndash;&gt;-->
+                    <!--<classifier>exec</classifier>-->
                 <!--</configuration>-->
             <!--</plugin>-->
 
