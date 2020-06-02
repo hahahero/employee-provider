@@ -90,32 +90,46 @@
         </resources>
 
         <plugins>
+            <!--热部署插件-->
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>3.2.0</version>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <excludes>
-                        <!--这些是表示打包是过滤掉的，这里不能写，因为会导致数据库配置读不到-->
-                        <!--<exclude>**/*.properties</exclude>-->
-                    </excludes>
-                    <archive>
-                        <manifest>
-                            <!-- 是否添加依赖的jar路径配置 -->
-                            <addClasspath>true</addClasspath>
-                            <!-- 依赖的jar包存放位置，和生成的jar放在同一级目录下 -->
-                            <classpathPrefix>${project.artifactId}-${project.version}/lib/</classpathPrefix>
-                            <!-- 配置maven编译打包后jar包的主入口函数 -->
-                            <mainClass>com.mysql.employee.demo.EmployeeMain</mainClass>
-                        </manifest>
-                    </archive>
-                    <!-- 配置maven编译打包依赖的本地jar包 -->
-                    <!--<includes>-->
-                    <!--<directory>${project.build.directory}</directory>-->
-                    <!--<include>**/*.jar</include>-->
-                    <!--</includes>-->
+                    <!--此处为自己的启动类-->
+                    <mainClass>com.mysql.employee.demo.EmployeeMain</mainClass>
                 </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
+
+
+            <!--<plugin>-->
+                <!--<groupId>org.apache.maven.plugins</groupId>-->
+                <!--<artifactId>maven-jar-plugin</artifactId>-->
+                <!--<version>3.2.0</version>-->
+                <!--<configuration>-->
+                    <!--<excludes>-->
+                        <!--&lt;!&ndash;这些是表示打包是过滤掉的，这里不能写，因为会导致数据库配置读不到&ndash;&gt;-->
+                        <!--&lt;!&ndash;<exclude>**/*.properties</exclude>&ndash;&gt;-->
+                    <!--</excludes>-->
+                    <!--<archive>-->
+                        <!--<manifest>-->
+                            <!--&lt;!&ndash; 是否添加依赖的jar路径配置 &ndash;&gt;-->
+                            <!--<addClasspath>true</addClasspath>-->
+                            <!--&lt;!&ndash; 依赖的jar包存放位置，和生成的jar放在同一级目录下 &ndash;&gt;-->
+                            <!--<classpathPrefix>${project.artifactId}-${project.version}/lib/</classpathPrefix>-->
+                            <!--&lt;!&ndash; 配置maven编译打包后jar包的主入口函数 &ndash;&gt;-->
+                            <!--<mainClass>com.mysql.employee.demo.EmployeeMain</mainClass>-->
+                        <!--</manifest>-->
+                    <!--</archive>-->
+                <!--</configuration>-->
+            <!--</plugin>-->
+
             <!-- 抽取第三方依赖 jar 包，到独立 lib 目录中 -->
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
