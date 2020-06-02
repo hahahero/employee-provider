@@ -1,17 +1,27 @@
 spring:
   application:
-    name: spring-boot-demo
+    name: employee-provider
   devtools:
     restart:
-      enabled: true
-
+      enabled: false
   datasource:
     username: root
     password: 123456
     url: jdbc:mysql://49.232.45.80:3306/employees?serverTimezone=UTC&characterEncoding=utf-8
-    driverClassName: com.mysql.jdbc.Driver
+#    driver-class-name: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+
 server:
   port: 9090
   tomcat:
     uri-encoding: UTF-8
 debug: false
+
+dubbo:
+  application:
+    name: employee-provider
+  protocol:
+    name: dubbo
+    prot: 20880
+  registry:
+    address: zookeeper://127.0.0.1:2181
