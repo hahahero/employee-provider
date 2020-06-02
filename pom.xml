@@ -44,7 +44,7 @@
         <dependency>
             <groupId>org.apache.zookeeper</groupId>
             <artifactId>zookeeper</artifactId>
-            <version>3.5.3-beta</version>
+            <version>3.5.5</version>
             <!-- 在zookeeper中去除对slf4j的依赖 -->
             <exclusions>
                 <exclusion>
