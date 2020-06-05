@@ -107,7 +107,7 @@
                 <!--</executions>-->
             <!--</plugin>-->
 
-            <!-- 不需要打包成可执行的jar可使用此方式，只打包为用来做依赖用的，因为该方式打包的jar只能在tomcat外部容器中
+            <!-- 不需要打包成可在tomcat中执行的jar可使用此方式，只打包为用来做依赖用的，因为该方式打包的jar只能在tomcat外部容器中
              运行，springboot插件打包会内置tomcat容器-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
